@@ -7,6 +7,7 @@ import linkResolver from "../../utils/linkResolver";
 // import logo from '../../media/logo.png'
 import { Link } from "react-router-dom";
 import ProdDetails from "../../components/ProdDetails/index"
+import favIcon from "../../media/fav_icon.png"
 
 import ClipLoader from "react-spinners/ClipLoader";
 var Moment = require("moment");
@@ -132,6 +133,7 @@ console.log("all years", allYears)
     var data = doc.map(
       (post) => (
         <div onClick={() => {toggleItem(post.uid)}} className="product">
+            <img className="fav-icon" src={favIcon}/>
           {/* <Link to={`/products/${post.uid}`}> */}
             <img
               className="blog-img"
