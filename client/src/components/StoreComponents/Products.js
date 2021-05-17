@@ -80,7 +80,7 @@ if (ourContext.thisProduct.options) {
   // css={override}
   className="clippy"
   size={35}
-  color={"#196196"}
+  color={"#5b81ff"}
   // loading={this.state.loading}
 />
 </div>)

@@ -3,7 +3,7 @@
 .darkfooter {
   background-color:#F4F4F4;
   color:#868686;
-  height:400px;
+  height:150px;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -12,13 +12,14 @@
 }
 
 .darkfooter * {
-  margin:10px 0px;
+  margin:0px 0px;
 }
 
 .darkfooter h1 {
-  font-size:15px;
+  color:#2f2f2f;
+  font-size:22px;
   letter-spacing:2px;
-  font-family: 'ivymode', sans-serif;
+  /* font-family: 'ivymode', sans-serif; */
   font-weight:300;
 }
 
@@ -38,7 +39,7 @@
 }
 
 .social-wrapper > * {
-  margin:10px 15px;
+  margin: 0px 15px;
 }
 .link-wrapper a {
  margin:0px 25px;
@@ -50,11 +51,11 @@
   margin-bottom:10px;
 }
 
-.social-wrapper img {
-  width:25px;
+.social-wrapper i {
+ font-size:22px;
   cursor:pointer;
 }
-.social-wrapper img:hover {
+.social-wrapper i:hover {
 opacity:.5;
 }
 

@@ -3,7 +3,7 @@
 } */
 
 * {
-  font-family: "ivymode";
+  font-family: "azo-sans-web",sans-serif;
 }
 
 html {
@@ -25,11 +25,12 @@ body {
 
 h1,
 h2 {
-  font-family: "ivymode", sans-serif;
+  /* font-family: "ivymode", sans-serif; */
   font-weight: 300;
   font-style: normal;
   letter-spacing: 0.09rem;
   font-size: 2rem;
+  color:#5b81ff;
 }
 
 .brand-title {
@@ -40,6 +41,7 @@ h2 {
 
 h1 {
   margin: 0;
+  /* color:white; */
 }
 
 p,
@@ -49,7 +51,7 @@ h4,
 h5,
 a,
 button {
-  color: #868686;
+  color: #2f2f2f;
   /* font-family: 'Roboto', sans-serif; */
   /* font-family: adelle, serif; */
   letter-spacing: 0.09rem;
@@ -59,9 +61,13 @@ button {
   box-shadow: inset 0 0 0 1000px rgba(217, 189, 189, .7);
 } */
 
+a {
+  text-decoration:none;
+}
+
 a:hover {
   text-decoration: none;
-  color: #196196;
+  color: #58787f;
 }
 
 input {
@@ -80,3 +86,22 @@ input[type="submit"] {
 button:focus {
   outline: none;
 }
+
+
+button {
+  border: 1px solid #5b81ff;
+  padding: 1em 2em;
+  background-color: transparent;
+  color:#5b81ff;
+  cursor:pointer;
+
+}
+button:hover {
+  background-color: #5b81ff;
+  color:  #F0DED1;
+  /* margin: 0px auto; */
+  padding: 1em 2em;
+  border: 1px solid#5b81ff;
+  transition: 0.6s;
+}
+

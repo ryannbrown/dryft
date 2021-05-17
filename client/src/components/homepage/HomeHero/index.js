@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import "./style.css";
 // import profPic from "../../media/5.PNG"
 // import placeHolder from "../../../media/placeholder.png"
-import bookImg from "../../../media/book-img.png";
+import ryanImg from "../../../media/ryan.jpg";
 import Typed from "typed.js";
+
 
 export default class Hero extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ export default class Hero extends Component {
           </div>
 
           <div className="hero-book-block">
-            <img className="hero-book-img" src={bookImg}></img>
+            <img className="hero-book-img" src={ryanImg}></img>
           </div>
         </div>
 

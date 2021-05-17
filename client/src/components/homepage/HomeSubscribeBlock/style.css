@@ -9,7 +9,7 @@
   justify-content: center;
 }
 .subscribe-content h2 {
-  color: #196196;
+  color: #5b81ff;
   margin-bottom: 25px;
 }
 .subscribe-content button {
@@ -18,10 +18,10 @@
   background-color: transparent;
 }
 .subscribe-content button:hover {
-  background-color: #196196;
+  background-color: #5b81ff;
   color: white;
   margin: 0px auto;
-  border: 1px solid#196196;
+  border: 1px solid#5b81ff;
   transition: 0.6s;
 }
 .subscribe-content input {

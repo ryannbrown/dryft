@@ -34,7 +34,7 @@ export default function BlogPost(props) {
     // console.log(props.match.params.post)
     const fetchData = async () => {
       const response = await Client.query(
-        Prismic.Predicates.at("my.blog.uid", param)
+        Prismic.Predicates.at("my.Product.uid", param)
       );
       if (response) {
         setDocData(response.results[0]);
@@ -62,14 +62,14 @@ export default function BlogPost(props) {
         
       <div className="blog-post-page">
         <div className="back-link">
-          <Link to="/blog"><FontAwesomeIcon className="icon-margin" icon={faChevronLeft}></FontAwesomeIcon>back</Link>
+          <Link to="/thoughts"><FontAwesomeIcon className="icon-margin" icon={faChevronLeft}></FontAwesomeIcon>back</Link>
         </div>
         {doc ? (
           <div className="blog-content">
                <Helmet>
                 <meta charSet="utf-8" />
-                <title>{RichText.asText(doc.data.title)}</title>
-                <meta name="description" content={doc.data.short_description[0].text} charSet="utf-8" />
+                <title>{RichText.asText(doc.data.product_title)}</title>
+                <meta name="description" content={doc.data.product_description[0].text} charSet="utf-8" />
                 <link rel="canonical" href={shareUrl} />
             </Helmet>
             {/* <div className="off-image-container">
@@ -78,7 +78,7 @@ export default function BlogPost(props) {
                                 src={doc.data.blog_image.url}
                               />
                             </div> */}
-            <h1 className="blog-title">{RichText.asText(doc.data.title)}</h1>
+            <h1 className="blog-title">{RichText.asText(doc.data.product_name)}</h1>
             <RichText
               className="modal-description"
               render={doc.data.blog_text}
@@ -91,7 +91,7 @@ export default function BlogPost(props) {
           <ClipLoader
           // css={override}
           size={35}
-          color={"#196196"}
+          color={"#5b81ff"}
           // loading={this.state.loading}
         />
         </div>

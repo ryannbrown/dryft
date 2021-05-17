@@ -3,14 +3,10 @@
 } */
 .white-block {
   /* margin-top:10vh; */
-  height: 30vh;
+  height: 15vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.about-content .white-block:first-child {
-height:15vh;
 }
 .pink-block {
   height: 60vh;
