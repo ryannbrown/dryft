@@ -229,9 +229,7 @@ export default class Nav extends Component {
         <div className="container">
             <input id="responsive-menu" type="checkbox"></input>
             <label for="responsive-menu"><img src={driftLogo}></img> <span id="menu-icon"></span></label>
-            <h1>
-              Curating the best of the best in boating products
-            </h1>
+         
             <div id="overlay"></div>
             <ul>
                 <li><Link to="http://art.yale.edu/">Contact</Link></li>

@@ -11,19 +11,16 @@ a:hover {
 /****************** NAVIGATION ******************/
 /************************************************/
 nav {
-    background: #5b81ff;
+    /* background: #5b81ff; */
     color: #1d1f20;
     left: 0;
-    position: relative;
     top: 0;
     width: 100%;
     z-index: 50;
     color:white;
-    height:50vh;
-    background-image:url(../../media/banner.png);
+    height:200px;
     background-size:cover;
-    /* display:flex;
-    align-items: center; */
+position:absolute;
 }
 
 nav .container {
@@ -46,6 +43,8 @@ nav label {
     display: block;
     font: 2em/1 'Oswald', sans-serif;
     padding: 0.5em;
+    width: 75%;
+    margin: 0px auto;
 }
 
 /* Hamburger Icon */

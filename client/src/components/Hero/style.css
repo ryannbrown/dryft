@@ -1,0 +1,15 @@
+.main-hero {
+    height:50vh;
+    background-image:url(../../media/banner.png);
+    background-size:cover;
+    background-position: center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-hero h1 {
+    color:white;
+    font-size:48px;
+    max-width:1200px;
+}

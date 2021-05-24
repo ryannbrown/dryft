@@ -22,6 +22,7 @@ import history from "./utils/history"
 import About from "./pages/About"
 import Homepage from "./pages/Homepage/index"
 import Blog from "./pages/Blog/index"
+import Hero from "./components/Hero"
 // import Resources from "./pages/Resources/index"
 // import Now from "./pages/Now/index"
 // import Webdev from "./pages/Webdev/index"
@@ -72,6 +73,7 @@ class App extends Component {
                <Nav
                 // client={context.client} checkout={checkout} isCartOpen={context.isCartOpen}
                 ></Nav>
+                <Hero></Hero>
                <ScrollToTop / >
              <Switch>
                {/* <Route path="/" component={Page}/> */}

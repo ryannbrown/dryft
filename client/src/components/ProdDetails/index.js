@@ -96,7 +96,7 @@ export default function ProdDetails(props) {
                 />
               <a target="_blank" href={doc.data.product_link.url}>
                 <button>
-                  Buy for <span>{doc.data.product_price[0].text}$</span>
+              <span>{doc.data.product_price[0].text}$</span> on {doc.data.product_location[0].text} <i class="lni lni-arrow-right"></i>
                 </button>
               </a>
               </div>
@@ -113,22 +113,23 @@ export default function ProdDetails(props) {
             />
           </div>
         )}
-        <div className="share-block">
+        
+        {/* <div className="share-block">
           <div className="share-btns">
             <FacebookShareButton url={shareUrl}>
-              {/* <FacebookIcon size={32} round={true}></FacebookIcon> */}
+            
               <img className="social-share-icon" src={fbGrey} />
             </FacebookShareButton>
             <TwitterShareButton url={shareUrl}>
               <img className="social-share-icon" src={twitGrey} />
             </TwitterShareButton>
             <LinkedinShareButton url={shareUrl}>
-              {/* <LinkedinIcon size={32} round={true}> */}
+          
               <img className="social-share-icon" src={linkedGrey} />
             </LinkedinShareButton>
           </div>
           <p>Share</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

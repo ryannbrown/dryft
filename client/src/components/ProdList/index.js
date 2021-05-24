@@ -134,13 +134,13 @@ console.log("all years", allYears)
       (post) => (
         <div onClick={() => {toggleItem(post.uid)}} className="product">
             <img className="fav-icon" src={favIcon}/>
-          {/* <Link to={`/products/${post.uid}`}> */}
+          <Link to={`/products/${post.uid}`}>
             <img
               className="blog-img"
               alt="cover"
               src={post.data.product_image.url}
               />
-          {/* </Link> */}
+          </Link>
           <div className="product-box">
             <h1>{post.data.product_name[0].text}</h1>
           <p>{post.data.date}</p>

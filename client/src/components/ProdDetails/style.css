@@ -1,10 +1,9 @@
 .product-modal {
     position:fixed;
-    height:100vh;
     top:50%;
     left:50%;
-    width:750px;
-    height:800px;
+    width:680px;
+    height:400px;
     margin-top:-400px;
     margin-left:-425px;
     z-index:750;
