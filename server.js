@@ -12,6 +12,10 @@
     const morgan = require('morgan');
     const router = require("express").Router();
     const path = require("path");
+
+    const knex = require("knex");
+    const bcrypt = require("bcrypt-nodejs");
+const uuid = require('uuid').v4
     
     // aws bucket
     require('dotenv').config();
@@ -29,6 +33,53 @@
     
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+    const register = require("./controllers/register");
+    const signin = require("./controllers/signin");
+    const saveTest = require("./controllers/savetest.js");
+    const profile = require("./controllers/profile");
+ 
+
+
+
+//  production
+ const db = knex({
+   client: "pg",
+   connection: process.env.CONNSTRING,
+   searchPath: ["knex", "public"],
+ });
+
+
+// local
+// const db = knex({
+//     client: "pg",
+//     connection: {
+//       host: '127.0.0.1',
+//       user: 'postgres',
+//       password: 'Pass1234',
+//       database: 'postgres'
+//     },
+//     searchPath: ["knex", "public"],
+//   });
+  
+  app.post("/api/register", (req, res) => {
+    register.handleRegister(req, res, db, bcrypt);
+  });
+  app.post("/api/signin", signin.handleSignin(db, bcrypt));
+
+  app.post("/api/savetest", (req, res) => {
+    saveTest.handleSaveTest(req, res, db);
+  });
+
+  app.get("/api/profile/:email", (req, res) => {
+      profile.handleProfileGet(req, res, db);
+    });
+  
+
+
+
     
     
     

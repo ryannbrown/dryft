@@ -45,6 +45,7 @@ nav label {
     padding: 0.5em;
     width: 75%;
     margin: 0px auto;
+    position: relative;
 }
 
 /* Hamburger Icon */
@@ -165,4 +166,33 @@ nav ul#social-media > li {
     display: inline-block;
     font-size: 1.5em;
     margin: 0.5em;
+}
+
+
+
+
+.nav-login {
+    position: absolute;
+    right: 75px;
+    top: 10px;
+    background-color: #FFFFFF;
+    border-radius:50px;
+    width:50px;
+    height:50px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-login i {
+color:#5b81ff
+}
+
+.fav-count {
+    background-color: white;
+    border-radius: 25px;
+    font-size: 16px;
+    position: absolute;
+    top: 1px;
+    right: 0px;
 }

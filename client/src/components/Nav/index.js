@@ -1,13 +1,5 @@
 import React, { Component } from "react";
 import "./style.css";
-// import Mobile from "./mobile"
-// import logo from "../../media/mainlogo.png";
-// import fbLogo from "../../media/fb-grey.png";
-// // import Cart from "../StoreComponents/Cart";
-// import instaLogo from "../../media/insta-grey.png";
-// import cartLogo from "../../media/cart-grey.png";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import {
   ThemeContextConsumer,
   ThemeContextProvider,
@@ -23,7 +15,7 @@ import {
   useParams,
 } from "react-router-dom";
 import driftLogo from "../../media/drift_logo.png"
-// import LoginModal from "../LoginModal/index";
+import LoginModal from "../LoginModal/index";
 import context from "react-bootstrap/esm/AccordionContext";
 
 var _ = require("lodash");
@@ -79,6 +71,13 @@ export default class Nav extends Component {
       modalOpened: !this.state.modalOpened,
     });
   };
+
+  closeNavModal=()=>{
+    document.getElementById("responsive-menu").checked = false;
+    this.setState({
+      modalOpened: !this.state.modalOpened,
+    });
+  }
 
   handleNavigation = (e) => {
     // console.log("handling nav");
@@ -228,8 +227,15 @@ export default class Nav extends Component {
         <nav>
         <div className="container">
             <input id="responsive-menu" type="checkbox"></input>
-            <label for="responsive-menu"><img src={driftLogo}></img> <span id="menu-icon"></span></label>
-         
+            <label for="responsive-menu"><img src={driftLogo}></img> <span id="menu-icon"></span>   <div className="nav-login">
+         <i onClick={this.toggleModal}
+                        toggleregister={this.toggleRegister}
+              class="lni lni-heart-filled">
+               {context.userLoggedIn && <div className="fav-count">0</div>}
+                </i>
+         </div></label>
+          
+     
             <div id="overlay"></div>
             <ul>
                 <li><Link to="http://art.yale.edu/">Contact</Link></li>
@@ -239,6 +245,9 @@ export default class Nav extends Component {
 
         </div>
     </nav>
+    {this.state.modalOpened && (
+              <LoginModal closeNavModal={this.closeNavModal} toggleModal={this.toggleModal}></LoginModal>
+            )}
     </div>
         )}
       </ThemeContextConsumer>
