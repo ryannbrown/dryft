@@ -40,6 +40,7 @@ const uuid = require('uuid').v4
     const signin = require("./controllers/signin");
     const saveTest = require("./controllers/savetest.js");
     const profile = require("./controllers/profile");
+    const removeTest = require("./controllers/removeSavedTest.js");
  
 
 
@@ -77,6 +78,10 @@ const uuid = require('uuid').v4
       profile.handleProfileGet(req, res, db);
     });
   
+
+    app.post("/api/removetest", (req, res) => {
+      removeTest.handleRemoveSavedTest(req, res, db);
+      });
 
 
 

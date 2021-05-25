@@ -25,7 +25,16 @@ const client = Client.buildClient({
    }
   
 
+   componentDidMount() {
+    let userStorageEmail = sessionStorage.getItem("email")
 
+    if ( userStorageEmail) {
+    //   console.log(userStorageEmail, "get it")
+this.activateUser(userStorageEmail)
+    }
+
+ 
+}
 
 
 
@@ -71,9 +80,12 @@ activateUser = (email) => {
     }
 
 
+    
+
+
 
 componentDidUpdate(){
-  // console.log(this.state.client)
+  console.log(this.state)
 }
 
 

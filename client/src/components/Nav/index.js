@@ -162,6 +162,11 @@ export default class Nav extends Component {
     this.setState({ overflowHidden: !this.state.overflowHidden });
   };
 
+  handleMobileNav = () => {
+    this.setState({ mobileNavToggle: false });
+    document.getElementById("responsive-menu").checked = false;
+  };
+
   componentDidUpdate() {
     // console.log(this.state.modalOpened);
     // if (this.state.lastPosition > 0) {
@@ -228,19 +233,21 @@ export default class Nav extends Component {
         <div className="container">
             <input id="responsive-menu" type="checkbox"></input>
             <label for="responsive-menu"><img src={driftLogo}></img> <span id="menu-icon"></span>   <div className="nav-login">
-         <i onClick={this.toggleModal}
+        {!context.userLoggedIn?  <i onClick={this.toggleModal}
                         toggleregister={this.toggleRegister}
               class="lni lni-heart-filled">
-               {context.userLoggedIn && <div className="fav-count">0</div>}
-                </i>
+            
+                </i> : <Link to="/wishlist"><i class="lni lni-heart-filled">
+               {context.userLoggedIn && <div className="fav-count">{context.userData.saved.length}</div> }
+                </i> </Link>  }  
          </div></label>
           
      
             <div id="overlay"></div>
             <ul>
-                <li><Link to="http://art.yale.edu/">Contact</Link></li>
-                <li><Link to="http://www.suzannecollinsbooks.com/">Blog</Link></li>
-                <li><Link to="http://www.arrestling.com/index.htm">About Us</Link></li>
+                <li><Link onClick={this.handleMobileNav} to="/">Home</Link></li>
+                <li><Link onClick={this.handleMobileNav}  to="http://www.suzannecollinsbooks.com/">Blog</Link></li>
+                <li><Link onClick={this.handleMobileNav}  to="http://www.arrestling.com/index.htm">About Us</Link></li>
             </ul>
 
         </div>

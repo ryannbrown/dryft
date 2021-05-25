@@ -24,7 +24,7 @@ require('react-dom');
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
-export default function ProdList() {
+export default function FavoritesPage() {
   const apiEndpoint = REACT_APP_PRISMIC_API;
   const accessToken = REACT_APP_PRISMIC_TOKEN;
   const context = useContext(ThemeContextConsumer)
@@ -44,33 +44,11 @@ export default function ProdList() {
   const [itemParam, setItemParam] = React.useState('null');
   const [itemSelected, toggleItemSelected] = React.useState(false);
   const [testSaved, toggleTestSaved] = React.useState(false);
-  const [thisTestSaved, toggleThisTestSaved] = React.useState(false);
-  const [favItems, setFavItems] = React.useState(false);
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await Client.query(
-        Prismic.Predicates.at("document.type", "product"),
-        { orderings: "[my.product.post_date desc]" }
-      );
-      if (response) {
-        setDocData(response.results);
-        console.log(response.results);
-      }
-    };
-    fetchData()
-    fetchFavItems();
-    // fetchDates()
-  }, []);
+  const [saved, setSaved] = React.useState(false);
 
 
-  const fetchFavItems =() => {
-    console.log("get me my items", context)
-if (context.userLoggedIn) {
-console.log(context.userData);
-setFavItems(context.userData.saved)
-}
-  }
+
+
 
 
   const saveItem = (test) => {
@@ -98,7 +76,6 @@ setFavItems(context.userData.saved)
             console.log(response)
             if (response.status == '200') {
              toggleTestSaved(true)
-             context.fetchUserData(context.userData.email)
     
             } else if (response.status == '400') {
               console.log("failed")
@@ -112,42 +89,6 @@ setFavItems(context.userData.saved)
         }
     
       }
-
-      const removeItem = (test) => {
-        if (test) {
-       
-          let email = context.userData.email;
-          // console.log('clicked')
-          fetch("/api/removetest", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              test_uuid: test,
-              email: email,
-            }),
-          }).then((response) => {
-            console.log("hey i did it");
-            console.log(response);
-            if (response.status == "200") {
-              // toggleTestSaved(true)
-              context.fetchUserData(context.userData.email)
-              // this.fetchData();
-            //   formatSavedTests(context.userData.saved);
-            // setSaved(true)
-            //   context.fetchUserData(email);
-            } else if (response.status == "400") {
-              console.log("failed");
-            }
-          });
-        } else {
-        //   this.setState({
-        //     loginAlert: true,
-        //   });
-        }
-      };
     
 
 
@@ -184,12 +125,61 @@ const setMonth = (e) => {
   // console.log(e.target.value)
 }
 
+const formatSavedTests = (savedTests) => {
+    context.fetchUserData(context.userData.email)
+    // setSaved(context.userData.saved)
+    // console.log("saved tests", savedTests)
+    const fetchData = async () => {
+        // if (context.userLoggedIn) {
+            console.log("THE CONTEXT", context)
+       let ids = savedTests
+       console.log(ids);
+      const response = await Client.query(
+        Prismic.Predicates.in('document.id', ids),
+      );
+      if (response) {
+          console.log('setting')
+        setDocData(response.results);
+        console.log(response.results);
+      }
+    // }
+    };
+    fetchData();
+}
 
-const addFavorite = (card, user) => {
-  console.log("CARD + USER ON CLICK", card, user);
-  // props.updateUser(card, user);
-  setFavItems([...favItems, card.id]);
-};
+
+const removeItem = (test) => {
+    if (test) {
+   
+      let email = context.userData.email;
+      // console.log('clicked')
+      fetch("/api/removetest", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          test_uuid: test,
+          email: email,
+        }),
+      }).then((response) => {
+        console.log("hey i did it");
+        console.log(response);
+        if (response.status == "200") {
+          formatSavedTests(context.userData.saved);
+        setSaved(true)
+        //   context.fetchUserData(email);
+        } else if (response.status == "400") {
+          console.log("failed");
+        }
+      });
+    } else {
+    //   this.setState({
+    //     loginAlert: true,
+    //   });
+    }
+  };
 
 
 const toggleItem = (uid) => {
@@ -219,6 +209,34 @@ const resetSearch = () => {
 }
 
 
+
+
+React.useEffect(() => {
+    console.log("effect context updated", context)
+  const fetchData = async () => {
+      // if (context.userLoggedIn) {
+          console.log("THE CONTEXT", context)
+          if (saved){
+              var ids = saved;
+          } else  {
+              var ids = context.userData.saved;
+          }
+     console.log(ids);
+    const response = await Client.query(
+      Prismic.Predicates.in('document.id', ids),
+    );
+    if (response) {
+      setDocData(response.results);
+      console.log(response.results);
+    }
+  // }
+  };
+  fetchData();
+  // fetchDates()
+}, []);
+
+
+
 var now = Moment();
 // console.log(now);
 let thisYear = Moment(now).format("YYYY")
@@ -243,14 +261,12 @@ console.log("all years", allYears)
     var data = doc.map(
       (post) => (
         <div className="product">
-          {!context.userData.saved.includes(post.id) ? <div className="nav-login"> <i onClick={() => {saveItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> : 
-           <div className="nav-login"><i onClick={() => {removeItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> }
-         
-           {/* {!testSaved ?  <i className="fav-icon lni lni-heart" onClick={() => {saveItem(post.id)}} src={favIcon}/> : <div className="nav-login">  <i className=" lni lni-heart-filled" 
-          //  onClick={() => {removeItem(post.id)}}
-           ></i></div> } */}
             {/* <img className="fav-icon" onClick={() => {saveItem(post.id)}} src={favIcon}/> */}
-          <Link onClick={() => {toggleItem(post.uid)}}  to={`/products/${post.uid}`}>
+            <div className="nav-login">
+            <i class="lni lni-heart-filled" onClick={() => {removeItem(post.id)}}></i>
+            </div>
+          <Link onClick={() => {toggleItem(post.uid)}}
+            to={`/wishlist/${post.uid}`}>
             <img
               className="blog-img"
               alt="cover"
@@ -296,11 +312,14 @@ console.log("all years", allYears)
           {doc ? (
             <div >
               {doc.length > 0 ?
+              <div>
+               <h1>Your Favorites</h1>
            <div className="product-wrapper">
                {data}
                </div>
+               </div> 
                : <div>No Items available</div>
-            }
+          }
              
             
             </div>

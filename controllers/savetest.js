@@ -4,9 +4,10 @@ const uuid = require('uuid').v4
 const handleSaveTest = (req, res, db, uuidv4) => {
     const { email, test_uuid, title } = req.body;
 
-    const array = []
-    array.push(test_uuid, title)
-    console.log(array)
+    // const array = []
+    // // array.push(test_uuid, title)
+    // array.push(test_uuid)
+    // console.log(array)
   
 console.log(email, test_uuid)
 
@@ -29,7 +30,7 @@ console.log(email, test_uuid)
 
 
 
-    db('user_profiles').where({email}).update({saved: db.raw('array_append(saved, ?)', [array])})
+    db('user_profiles').where({email}).update({saved: db.raw('array_append(saved, ?)', [test_uuid])})
 
     // UPDATE cds_users SET saved = saved || '{${data.itemId}}' WHERE email = $1
     .then(res.send("POST request to the homepage"))

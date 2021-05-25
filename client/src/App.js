@@ -36,6 +36,7 @@ import { ThemeContextConsumer, ThemeContextProvider } from "./utils/themeContext
 import createHistory from 'history/createBrowserHistory';
 import {Helmet} from "react-helmet";
 import { Fragment } from 'react';
+import FavoritesPage from './pages/FavoritesPage';
 // import { Router, Route, Link } from 'react-router-dom';
 // import history from './history';
 
@@ -79,7 +80,8 @@ class App extends Component {
                {/* <Route path="/" component={Page}/> */}
                <Route path="/thoughts/:post" component={BlogPost}/>
              <Route path="/thoughts" component={Blog}/>
-             <Route path="/about" component={About}/>
+             <Route path="/thoughts" component={Blog}/>
+             <Route path="/wishlist" component={FavoritesPage}/>
              {/* <Route path="/now" component={Now}/> */}
              {/* <Route path="/webdev/:works" component={WebdevDetails}/>
              <Route path="/webdev" component={Webdev}/> */}

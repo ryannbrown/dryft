@@ -19,7 +19,7 @@ console.log("removing", email, test_uuid)
     //     array_column_name: knex.raw('array_append(array_column_name, ?)', [data_to_append])
     // })
 
-    db('user_profiles').where({email}).update({saved: db.raw(`array_remove(saved, ?)`, [test_uuid.item])})
+    db('user_profiles').where({email}).update({saved: db.raw(`array_remove(saved, ?)`, [test_uuid])})
     .then(res.send("POST request to the homepage"))
     .catch(err =>  console.log(err))
   }
