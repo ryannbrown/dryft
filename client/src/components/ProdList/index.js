@@ -239,12 +239,13 @@ console.log("all years", allYears)
 // const monthsOfYear= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 
-  if (doc && context) {
+  if (doc) {
     var data = doc.map(
       (post) => (
         <div className="product">
-          {!context.userData.saved.includes(post.id) ? <div className="nav-login"> <i onClick={() => {saveItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> : 
-           <div className="nav-login"><i onClick={() => {removeItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> }
+          {context.userLoggedIn &&  <div> {!context.userData.saved.includes(post.id) ? <div className="nav-login"> <i onClick={() => {saveItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> : 
+           <div className="nav-login"><i onClick={() => {removeItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> } </div> } 
+       
          
            {/* {!testSaved ?  <i className="fav-icon lni lni-heart" onClick={() => {saveItem(post.id)}} src={favIcon}/> : <div className="nav-login">  <i className=" lni lni-heart-filled" 
           //  onClick={() => {removeItem(post.id)}}
