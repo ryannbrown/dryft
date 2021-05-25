@@ -132,7 +132,7 @@ setFavItems(context.userData.saved)
             console.log("hey i did it");
             console.log(response);
             if (response.status == "200") {
-              // toggleTestSaved(true)
+              toggleTestSaved(true)
               context.fetchUserData(context.userData.email)
               // this.fetchData();
             //   formatSavedTests(context.userData.saved);
@@ -239,7 +239,7 @@ console.log("all years", allYears)
 // const monthsOfYear= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 
-  if (doc) {
+  if (doc && context) {
     var data = doc.map(
       (post) => (
         <div className="product">
