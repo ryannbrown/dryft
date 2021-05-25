@@ -24,7 +24,7 @@ export default class Homepage extends Component {
         return (
         
         <div>
-             {/* <Navbar></Navbar> */}
+             {/* <Navbar></Navbar> z*/}
              <div style={{backgroundImg: `url(${bannerImg})`}}></div>
             <div className="homepage-content">
           <ProdList></ProdList>
