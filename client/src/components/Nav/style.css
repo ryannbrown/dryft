@@ -196,3 +196,22 @@ color:#5b81ff
     top: 1px;
     right: 0px;
 }
+
+img.nav-logo {
+    position: absolute;
+    top: 25px;
+    left:50%;
+    margin-left:-34.5px;
+}
+
+nav label {
+    cursor: pointer;
+    display: block;
+    font: 2em/1 'Oswald', sans-serif;
+    padding: 0.5em;
+    width: 50px;
+    /* margin: 0px auto; */
+    position: absolute;
+    right: 25%;
+    top: 0px;
+}

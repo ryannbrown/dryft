@@ -231,23 +231,24 @@ export default class Nav extends Component {
           <div>
         <nav>
         <div className="container">
+       <Link to="/"> <img className="nav-logo" src={driftLogo}></img> </Link>
             <input id="responsive-menu" type="checkbox"></input>
-            <label for="responsive-menu"><img src={driftLogo}></img> <span id="menu-icon"></span>   <div className="nav-login">
-        {!context.userLoggedIn?  <i onClick={this.toggleModal}
-                        toggleregister={this.toggleRegister}
+            <label for="responsive-menu"><span id="menu-icon"></span>    {!context.userLoggedIn?    <div onClick={this.toggleModal}
+                        toggleregister={this.toggleRegister} className="nav-login">
+     <i 
               class="lni lni-heart-filled">
             
-                </i> : <Link to="/wishlist"><i class="lni lni-heart-filled">
+                </i> </div> : <Link to="/wishlist"> <div className="nav-login"><i class="lni lni-heart-filled">
                {context.userLoggedIn && <div className="fav-count">{context.userData.saved.length}</div> }
-                </i> </Link>  }  
-         </div></label>
+                </i></div> </Link>  }  
+         </label>
           
      
             <div id="overlay"></div>
             <ul>
-                <li><Link onClick={this.handleMobileNav} to="/">Home</Link></li>
-                <li><Link onClick={this.handleMobileNav}  to="http://www.suzannecollinsbooks.com/">Blog</Link></li>
-                <li><Link onClick={this.handleMobileNav}  to="http://www.arrestling.com/index.htm">About Us</Link></li>
+                <li><Link onClick={this.handleMobileNav} to="/">Contact</Link></li>
+                <li><Link onClick={this.handleMobileNav}  to="/">Blog</Link></li>
+                <li><Link onClick={this.handleMobileNav}  to="/">About Us</Link></li>
             </ul>
 
         </div>
