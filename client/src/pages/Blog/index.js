@@ -176,8 +176,7 @@ console.log("all years", allYears)
         {/* <p>thoughts</p> */}
       </div>
       <div className="home-wrapper">
-      <GoogleLogin buttonText="hey">
-           </GoogleLogin>
+ 
 
         {/* filter is hidden for now */}
         {/* <form className="blog-filter" onSubmit={queryByDate}>
