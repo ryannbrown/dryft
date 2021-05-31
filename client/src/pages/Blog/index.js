@@ -11,7 +11,6 @@ import Nav from "../../components/Nav";
 import forestImg from "../../media/forest.jpg";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
-import GoogleLogin from "react-google-login"
 var Moment = require("moment");
 
 require("dotenv").config();
