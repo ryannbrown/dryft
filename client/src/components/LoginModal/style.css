@@ -13,6 +13,7 @@
     overflow-y:hidden;
     /* margin-top:100px; */
     /* margin-top:80px; */
+    top:0px;
 }
 
 .modal-box {
@@ -116,7 +117,7 @@
 }
 
 .first-time-block p{
-  color:#77E0D4;
+  color:#5b81ff;
   cursor:pointer;
 }
   
@@ -207,7 +208,7 @@
 
   }
 .tippy-tooltip-content {
-    background-color:#77E0D4;
+    background-color:#5b81ff;
     padding:10px;
     position:absolute;
     width:250px;
@@ -277,3 +278,12 @@ margin:50px 0px;
   /* width:90%; */
 }
   }
+
+
+  .google-register {
+    width: 250px !important;
+    margin: 50px auto !important;
+    display: flex !important;
+    justify-content: center;
+    text-align: center !important;
+}

@@ -167,6 +167,12 @@ export default class Nav extends Component {
     document.getElementById("responsive-menu").checked = false;
   };
 
+  signOut = () => {
+    var ourContext = this.context;
+    ourContext.logoutUser();
+    this.handleMobileNav();
+  }
+
   componentDidUpdate() {
     // console.log(this.state.modalOpened);
     // if (this.state.lastPosition > 0) {
@@ -231,7 +237,7 @@ export default class Nav extends Component {
           <div>
         <nav>
         <div className="container">
-       <Link to="/"> <img className="nav-logo" src={driftLogo}></img> </Link>
+       <Link onClick={this.handleMobileNav} to="/"> <img className="nav-logo" src={driftLogo}></img> </Link>
             <input id="responsive-menu" type="checkbox"></input>
             <label for="responsive-menu"><span id="menu-icon"></span>    {!context.userLoggedIn?    <div onClick={this.toggleModal}
                         toggleregister={this.toggleRegister} className="nav-login">
@@ -239,7 +245,7 @@ export default class Nav extends Component {
               class="lni lni-heart-filled">
             
                 </i> </div> : <Link to="/wishlist"> <div className="nav-login"><i class="lni lni-heart-filled">
-               {context.userLoggedIn && <div className="fav-count">{context.userData.saved.length}</div> }
+               {context.userLoggedIn && context.userData.saved && <div className="fav-count">{context.userData.saved.length}</div> }
                 </i></div> </Link>  }  
          </label>
           
@@ -249,6 +255,8 @@ export default class Nav extends Component {
                 <li><Link onClick={this.handleMobileNav} to="/">Contact</Link></li>
                 <li><Link onClick={this.handleMobileNav}  to="/">Blog</Link></li>
                 <li><Link onClick={this.handleMobileNav}  to="/">About Us</Link></li>
+                {context.userLoggedIn &&   <li><Link onClick={this.signOut}  to="/">Sign Out</Link></li>}
+               
             </ul>
 
         </div>

@@ -7,7 +7,7 @@ justify-content: center;
 
 .blog-img {
  flex: 0 0 25%;
- max-width:400px;
+ max-width:275px;
 }
 
 
@@ -50,5 +50,13 @@ justify-content: center;
 
 
 .lni-heart-filled, .lni-heart {
-    font-size:32px;
+    font-size:23px;
+}
+
+.browse-select {
+    padding:.5em 1em;
+}
+
+.browse-btn {
+    padding: .5em 1em;
 }

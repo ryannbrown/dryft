@@ -11,6 +11,7 @@ import Nav from "../../components/Nav";
 import forestImg from "../../media/forest.jpg";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
+import GoogleLogin from "react-google-login"
 var Moment = require("moment");
 
 require("dotenv").config();
@@ -176,6 +177,9 @@ console.log("all years", allYears)
         {/* <p>thoughts</p> */}
       </div>
       <div className="home-wrapper">
+      <GoogleLogin buttonText="hey">
+           </GoogleLogin>
+
         {/* filter is hidden for now */}
         {/* <form className="blog-filter" onSubmit={queryByDate}>
         <select className="filter-select" onChange={setMonth}>

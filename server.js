@@ -12,7 +12,7 @@
     const morgan = require('morgan');
     const router = require("express").Router();
     const path = require("path");
-
+    var axios = require("axios");
     const knex = require("knex");
     const bcrypt = require("bcrypt-nodejs");
 const uuid = require('uuid').v4
@@ -82,6 +82,44 @@ const uuid = require('uuid').v4
     app.post("/api/removetest", (req, res) => {
       removeTest.handleRemoveSavedTest(req, res, db);
       });
+
+
+
+
+      app.post("/api/googlelogin", (req, res) => {
+        console.log('here we go!')
+      
+        let data = {
+          email: req.body.email,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name
+        }
+
+
+
+        db.select('email').from('user_profiles').where('email', data.email).then(userResponse => {
+          console.log("userResponse", userResponse)
+    if (userResponse.length ===0) {
+    
+      db('user_profiles')
+                // .returning('*')
+                .insert({
+                  email: data.email,
+                  first_name: data.first_name,
+                  last_name: data.last_name,
+                  uuid: uuid(),
+                  joined: new Date()
+                })
+                .then(user => {
+                  res.send('registration success')
+                })
+    } else {
+      res.send('signed in')
+    }
+    
+        })
+      
+      })
 
 
 

@@ -19,6 +19,8 @@ import {
   ThemeContextProvider,
 } from "../../utils/themeContext";
 import "./style.css";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import SocialButton from '../SocialButton/index'
 // import {
 //   Tooltip,
 // } from 'react-tippy';
@@ -36,7 +38,8 @@ class LoginModal extends Component {
       registrationToggled: false,
       showLoginAlert: false,
       showRegisterAlert:false,
-      overflowHidden: true
+      overflowHidden: true,
+      googleError: false
       //   loggedInState: this.props.loggedInState,
       //   user: null,
       //   userLoggedIn: this.props.userLoggedIn
@@ -81,19 +84,43 @@ if (this.state.overflowHidden) {
     });
   };
 
-  //   handleClose = () => {
-  //     // console.log("clicked")
-  //     this.setState({
-  //      opened: false
-  //     });
-  //   };
+  handleSocialLogin = (user) => {
+    const ourContext = this.context;
+    console.log(user)
 
-  //   handleOpen = () => {
-  //     this.setState({
-  //       show: true,
-  //       setShow: true,
-  //     });
-  //   };
+    let email = user._profile.email
+    let first_name = user._profile.firstName
+    let last_name = user._profile.lastName
+
+
+    fetch("/api/googlelogin", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+      email,
+      first_name,
+      last_name
+      }),
+    }).then((response) => {
+if (response.status == '200') {
+ ourContext.activateUser(email);
+ this.props.closeNavModal();
+} else {
+  console.log("FAIL!")
+}
+    })
+
+  }
+  
+  handleSocialLoginFailure = (err) => {
+    console.error(err)
+    this.setState({
+      googleError:true
+    })
+  }
 
   handleLogin = (e) => {
     const ourContext = this.context;
@@ -130,7 +157,8 @@ if (this.state.overflowHidden) {
           ourContext.activateUser(email);
           console.log(response)
           // console.log(email)
-          this.props.toggleModal();
+          // this.props.toggleModal();
+          this.props.closeNavModal();
           // if (this.props.userLoggedIn) {
         //   this.setState({
         //     // userLoggedIn: true,
@@ -201,7 +229,7 @@ if (this.state.overflowHidden) {
             ourContext.activateUser(email);
         //   ourContext.activateUser(email);
           // console.log(email)
-          this.props.toggleModal();
+          this.props.closeNavModal();
           // if (this.props.userLoggedIn) {
           this.setState({
             // userLoggedIn: true,
@@ -242,10 +270,9 @@ if (this.state.overflowHidden) {
     window.location.reload();
   };
 
-  componentDidMount() {
-    //   var ourContext = this.context;
-    //   console.log(ourContext)
-  }
+
+
+
 
   render() {
 
@@ -274,10 +301,15 @@ if (this.state.overflowHidden) {
                 </div>
        
               </form>
-              {/* <div>
+              <div>
   <h3>Or</h3>
-  <LinkedIn text="Login with LinkedIn"></LinkedIn>
-</div> */}
+  <SocialButton
+      provider='google'
+      appId='554958832059-qvfl43kqio3mk9hu3p1fl8o3e5mteat6.apps.googleusercontent.com'
+      onLoginSuccess={this.handleSocialLogin}
+      onLoginFailure={this.handleSocialLoginFailure}
+    ><GoogleLoginButton text="Login with Google" ></GoogleLoginButton></SocialButton>
+</div>
               </div>
             ) :
            
@@ -311,8 +343,13 @@ if (this.state.overflowHidden) {
   
                 </div>
                 <div>
-  {/* <h3>Or</h3> */}
-  {/* <LinkedIn text="Register with Linked In"></LinkedIn> */}
+  <h3>Or</h3>
+  <SocialButton
+      provider='google'
+      appId='554958832059-qvfl43kqio3mk9hu3p1fl8o3e5mteat6.apps.googleusercontent.com'
+      onLoginSuccess={this.handleSocialLogin}
+      onLoginFailure={this.handleSocialLoginFailure}
+    ><GoogleLoginButton className="google-register" text="Register with Google" ></GoogleLoginButton></SocialButton>
 </div>
          
               </form>

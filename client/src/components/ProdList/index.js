@@ -8,12 +8,16 @@ import linkResolver from "../../utils/linkResolver";
 import { Link } from "react-router-dom";
 import ProdDetails from "../../components/ProdDetails/index"
 import favIcon from "../../media/fav_icon.png"
+import uniq from 'lodash/uniq';
 
 import ClipLoader from "react-spinners/ClipLoader";
 import {
   ThemeContextConsumer,
   ThemeContextProvider,
 } from "../../utils/themeContext";
+
+import LoginModal from "../LoginModal/index"
+
 var Moment = require("moment");
 require("dotenv").config();
 const { REACT_APP_PRISMIC_API, REACT_APP_PRISMIC_TOKEN } = process.env;
@@ -46,22 +50,65 @@ export default function ProdList() {
   const [testSaved, toggleTestSaved] = React.useState(false);
   const [thisTestSaved, toggleThisTestSaved] = React.useState(false);
   const [favItems, setFavItems] = React.useState(false);
+  const [showLogin, setShowLogin] = React.useState(false);
+  const [tags, setTags] = React.useState();
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await Client.query(
-        Prismic.Predicates.at("document.type", "product"),
-        { orderings: "[my.product.post_date desc]" }
-      );
-      if (response) {
-        setDocData(response.results);
-        console.log(response.results);
-      }
-    };
-    fetchData()
+   
+    fetchAllData()
     fetchFavItems();
     // fetchDates()
   }, []);
+
+
+
+  const fetchAllData = async () => {
+    const response = await Client.query(
+      Prismic.Predicates.at("document.type", "product"),
+      { orderings: "[my.product.post_date desc]" }
+    );
+    if (response) {
+      setDocData(response.results);
+      getTags(response.results);
+      console.log(response.results);
+      console.log(response);
+    }
+  };
+
+
+  const getTags = (data) => {
+    // This tab is here to operate as a label for the rest of the tags, it is not selectable 
+    let tags = ['filter by tag'];
+    data.forEach(item => {
+      console.log("item", item)
+      item.tags.forEach(tag => {
+        tags.push(tag)
+      })
+   
+    })
+    let uniqueTags = uniq(tags)
+   setTags(uniqueTags);
+  }
+
+const searchByTag = (e) => {
+  let theTag = e.target.value
+  console.log(theTag)
+  
+  const fetchData = async (tag) => {
+    let searchByTag = []
+    searchByTag.push(tag);
+    const response = await Client.query(
+      Prismic.Predicates.at("document.tags", searchByTag)
+      // { orderings: "[my.product.post_date desc]" }
+    );
+    if (response) {
+      setDocData(response.results);
+    }
+  };
+
+fetchData(theTag);
+  // setDateMonth(theMonth)
+}
 
 
   const fetchFavItems =() => {
@@ -105,7 +152,7 @@ setFavItems(context.userData.saved)
             }
           })
         } else {
-          alert("problems")
+          // alert("problems")
           // this.setState({
           //   loginAlert: true
           // })
@@ -150,6 +197,30 @@ setFavItems(context.userData.saved)
       };
     
 
+      const openLoginModal = () => {
+        setShowLogin(!showLogin);
+      }
+
+      const closeNavModal = () => {
+        setShowLogin(false);
+      }
+
+
+
+      // toggleModal = () => {
+      //   this.fixOverflow();
+      //   console.log("clicked");
+      //   this.setState({
+      //     modalOpened: !this.state.modalOpened,
+      //   });
+      // };
+    
+      // closeNavModal=()=>{
+      //   document.getElementById("responsive-menu").checked = false;
+      //   this.setState({
+      //     modalOpened: !this.state.modalOpened,
+      //   });
+      // }
 
 
 const queryByDate = (e) => {
@@ -213,27 +284,28 @@ const resetSearch = () => {
     if (response) {
       setDocData(response.results);
       console.log(response.results);
+     
     }
   };
   fetchData();
 }
 
 
-var now = Moment();
+// var now = Moment();
 // console.log(now);
-let thisYear = Moment(now).format("YYYY")
-let thisMonth = Moment(now).format("MMMM")
-let allYears = [thisYear];
-let allMonths = [thisMonth];
-// to be changed when blog has run longer
-for (var i = 1; i <=1; i++) {
-  allYears.push(Moment(now).subtract(i, 'years').format("YYYY"));
-}
-for (var i = 1; i <=11; i++) {
-  allMonths.push(Moment(now).subtract(i, 'months').format("MMMM"));
-}
-console.log("all months", allMonths)
-console.log("all years", allYears)
+// let thisYear = Moment(now).format("YYYY")
+// let thisMonth = Moment(now).format("MMMM")
+// let allYears = [thisYear];
+// let allMonths = [thisMonth];
+// // to be changed when blog has run longer
+// for (var i = 1; i <=1; i++) {
+//   allYears.push(Moment(now).subtract(i, 'years').format("YYYY"));
+// }
+// for (var i = 1; i <=11; i++) {
+//   allMonths.push(Moment(now).subtract(i, 'months').format("MMMM"));
+// }
+// console.log("all months", allMonths)
+// console.log("all years", allYears)
 
 // const someYears = ["2021","2020", "2019"]
 // const monthsOfYear= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -243,8 +315,12 @@ console.log("all years", allYears)
     var data = doc.map(
       (post) => (
         <div className="product">
-          {context.userLoggedIn &&  <div> {!context.userData.saved.includes(post.id) ? <div className="nav-login"> <i onClick={() => {saveItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> : 
+          {context.userLoggedIn && context.userData.saved !== null &&  <div> {!context.userData.saved.includes(post.id) ? <div className="nav-login"> <i onClick={() => {saveItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> : 
            <div className="nav-login"><i onClick={() => {removeItem(post.id)}} className={!context.userData.saved.includes(post.id) ? "lni lni-heart" : "lni lni-heart-filled"}/> </div> } </div> } 
+
+{context.userLoggedIn && context.userData.saved === null && <div className="nav-login"> <i  onClick={() => {saveItem(post.id)}}  className="lni lni-heart"></i></div> } 
+
+{!context.userLoggedIn &&  <div className="nav-login"> <i onClick={openLoginModal} className="lni lni-heart"></i></div> } 
        
          
            {/* {!testSaved ?  <i className="fav-icon lni lni-heart" onClick={() => {saveItem(post.id)}} src={favIcon}/> : <div className="nav-login">  <i className=" lni lni-heart-filled" 
@@ -270,12 +346,20 @@ console.log("all years", allYears)
       // <h1>{RichText.asText(doc.data.title)}</h1>
     );
 
-    var months = allMonths.map((month, i) => (
-      <option value={month}>{month}</option>
-    ));
-    var years = allYears.map((year, i) => (
-      <option value={year}>{year}</option>
-    ));
+    if (tags) {
+      var tagList = tags.map((tag, i) => (
+        <option defaultValue={"Filter by Tag"} selected={i === 0 ? true: false} disabled={i === 0 ? true: false} value={tag}>{tag}</option>
+      ));
+    }
+
+  
+
+    // var months = allMonths.map((month, i) => (
+    //   <option value={month}>{month}</option>
+    // ));
+    // var years = allYears.map((year, i) => (
+    //   <option value={year}>{year}</option>
+    // ));
   }
 
   return (
@@ -292,10 +376,18 @@ console.log("all years", allYears)
         <button className="filter-select-btn" type="submit">Search</button>
         <button className="filter-select-btn" onClick={resetSearch}>Reset</button>
         </form> */}
+
+        <div>
+          <select className="browse-select" onChange={searchByTag}>
+            {tagList}
+          </select>
+          <button onClick={fetchAllData} className="browse-btn">Browse All Items <i class="lni lni-reload"></i></button>
+        </div>
       
         <div>
           {doc ? (
             <div >
+  
               {doc.length > 0 ?
            <div className="product-wrapper">
                {data}
@@ -317,6 +409,10 @@ console.log("all years", allYears)
           )}
         </div>
         {itemSelected &&  <ProdDetails closeItem={closeItem} itemParam={itemParam}></ProdDetails> }
+        {showLogin && <LoginModal
+         closeNavModal={closeNavModal} 
+        // toggleModal={this.toggleModal}
+         ></LoginModal>}
  
     </div>
   );

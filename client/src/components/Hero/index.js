@@ -26,9 +26,12 @@ import driftLogo from "../../media/drift_logo.png"
 // import LoginModal from "../LoginModal/index";
 import context from "react-bootstrap/esm/AccordionContext";
 
+
+
 var _ = require("lodash");
 
-export default class Hero extends Component {
+export default class Hero extends Component { 
+  
   static contextType = ThemeContextConsumer;
   constructor(props) {
     super(props);
@@ -39,12 +42,8 @@ export default class Hero extends Component {
     };
   }
 
+render() {
 
- 
-
-
-  render() {
-    const { truthyCats, cats } = this.state;
 
     return (
   <div className="main-hero">
@@ -52,6 +51,9 @@ export default class Hero extends Component {
               Curating the best of the best in boating products
             </h1>
   </div>
-    );
-  }
-}
+    )
+          }
+};
+    ;
+    
+    
