@@ -337,7 +337,7 @@ const resetSearch = () => {
           <div className="product-box">
             <h1>{post.data.product_name[0].text}</h1>
           <p>{post.data.date}</p>
-          <p>{post.data.product_description[0].text}</p>
+          {/* <p>{post.data.product_description[0].text}</p> */}
           </div>
       
         </div>

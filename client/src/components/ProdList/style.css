@@ -1,8 +1,9 @@
 .product-wrapper {
-    margin:50px 0px;
+    margin:50px auto;
     display:flex;
     flex-wrap:wrap;
 justify-content: center;
+max-width:1200px;
 }
 
 .blog-img {
@@ -15,12 +16,13 @@ justify-content: center;
         flex: 0 0 21%;
         margin-top: 25px;
         margin-bottom: 25px;
-        padding: 15px;
+       margin: 15px;
         text-align: center;
         justify-content: center;
         align-items: center;
         cursor:pointer;
         position:relative;
+        background-color:#f6f6f6;
 }
 
 .product p {

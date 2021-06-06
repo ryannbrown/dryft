@@ -43,3 +43,7 @@
     right:25px;
     font-size:22px;
 }
+
+.rich-text-container {
+    min-height: 50px;
+}

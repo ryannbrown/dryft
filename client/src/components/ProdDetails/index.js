@@ -89,14 +89,19 @@ export default function ProdDetails(props) {
                 <h1 className="blog-title">
                   {RichText.asText(doc.data.product_name)}
                 </h1>
+                <div className="rich-text-container">
                 <RichText
                   className="modal-description"
                   render={doc.data.product_description}
                   linkResolver={linkResolver}
                 />
+                </div>
               <a target="_blank" href={doc.data.product_link.url}>
                 <button>
-              <span>{doc.data.product_price[0].text}$</span> on {doc.data.product_location[0].text} <i class="lni lni-arrow-right"></i>
+              {/* {doc.data.product_price[0]?.text &&  */}
+              <span>{doc.data.product_price[0].text || null} </span> 
+              {/* } */}
+               on {doc.data.product_location[0].text || null} <i class="lni lni-arrow-right"></i>
                 </button>
               </a>
               </div>
